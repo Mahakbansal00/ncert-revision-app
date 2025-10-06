@@ -1,5 +1,8 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-}
-module.exports = nextConfig
+  output: 'export',
+  images: { unoptimized: true },
+  basePath: '/ncert-revision-app',
+  assetPrefix: '/ncert-revision-app/',
+};
+
+export default nextConfig;

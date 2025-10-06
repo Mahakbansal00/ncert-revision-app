@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://Mahakbansal00.github.io/ncert-revision-app",
-  "type": "module",
-
   "scripts": {
     "dev": "next dev",
     "build": "next build",

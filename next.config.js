@@ -1,8 +1,7 @@
 const nextConfig = {
-  output: 'export',
   images: { unoptimized: true },
-  basePath: '/ncert-revision-app',
-  assetPrefix: '/ncert-revision-app/',
+  basePath: process.env.NODE_ENV === 'production' ? '/ncert-revision-app' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/ncert-revision-app/' : '',
 };
 
 export default nextConfig;

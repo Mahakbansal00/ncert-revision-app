@@ -25,7 +25,7 @@ export default function SourceSelector({ selected, onSelect }) {
       const reader = new FileReader()
       reader.onload = async () => {
         const base64 = reader.result.split(',')[1]
-        const res = await fetch('/api/uploadPdf', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/uploadPdf`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ fileName: file.name, fileData: base64 })

@@ -9,7 +9,7 @@ export default function QuizPanel({ pdf }) {
   const generate = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/generateQuiz', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/generateQuiz`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ pdf })
@@ -29,7 +29,7 @@ export default function QuizPanel({ pdf }) {
   const submit = async () => {
     if (!quiz) return;
     try {
-      const res = await fetch('/api/gradeQuiz', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/gradeQuiz`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ quiz, answers })

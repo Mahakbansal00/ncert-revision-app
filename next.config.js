@@ -1,7 +1,7 @@
 const nextConfig = {
   images: { unoptimized: true },
-  basePath: process.env.NODE_ENV === 'production' ? '/ncert-revision-app' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/ncert-revision-app/' : '',
+  // basePath and assetPrefix removed for Vercel deployment
+  // Vercel serves at root path, not under a subdirectory
 };
 
 export default nextConfig;

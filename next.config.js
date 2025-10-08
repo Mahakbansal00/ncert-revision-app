@@ -4,4 +4,4 @@ const nextConfig = {
   // Vercel serves at root path, not under a subdirectory
 };
 
-export default nextConfig;
+module.exports = nextConfig;

@@ -1,20 +1,38 @@
 import { generateQuizFromText } from "../../lib/llm";
-import fs from 'fs';
-import path from 'path';
-const pdfParse = require('pdf-parse');
+import fs from "fs";
+import path from "path";
+import PDFParser from "pdf2json";
 
 export default async function handler(req, res) {
   try {
     const { pdf } = req.body;
-    let text = '';
+    let text = "";
 
     if (pdf) {
       // Extract text from the specified PDF
-      const filePath = path.join(process.cwd(), 'public', pdf);
+      const filePath = path.join(process.cwd(), "public", pdf);
       if (fs.existsSync(filePath)) {
-        const dataBuffer = fs.readFileSync(filePath);
-        const data = await pdfParse(dataBuffer);
-        text = data.text;
+        // Use pdf2json for text extraction
+        const pdfParser = new PDFParser(null, 1);
+
+        text = await new Promise((resolve, reject) => {
+          pdfParser.on("pdfParser_dataError", (errData) => {
+            console.error("PDF parsing error:", errData.parserError);
+            reject(new Error("Failed to parse PDF"));
+          });
+
+          pdfParser.on("pdfParser_dataReady", () => {
+            try {
+              const parsedText = pdfParser.getRawTextContent();
+              resolve(parsedText);
+            } catch (error) {
+              console.error("Error extracting text:", error);
+              reject(new Error("Failed to extract text from PDF"));
+            }
+          });
+
+          pdfParser.loadPDF(filePath);
+        });
       } else {
         return res.status(404).json({ error: "PDF not found" });
       }
